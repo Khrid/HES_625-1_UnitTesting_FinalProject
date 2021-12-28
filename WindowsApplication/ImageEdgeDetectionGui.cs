@@ -12,6 +12,23 @@ using System.Windows.Forms;
 
 namespace WindowsApplication
 {
+    /// <summary>
+    /// Représente l'étape actuelle de l'application. Etapes possible : <br/>
+    /// <list type="bullet">
+    /// <item>
+    /// <description>NothingDone (rien n'a été fait)</description>
+    /// </item>
+    /// <item>
+    /// <description>ImageLoaded (image chargée)</description>
+    /// </item>
+    /// <item>
+    /// <description>FilterApplied (au moins un filtre appliqué ou no filter)</description>
+    /// </item>
+    /// <item>
+    /// <description>EdgeDetectionApplied (edge detection appliquée)</description>
+    /// </item>
+    /// </list>
+    /// </summary>
     enum Step
     {
         NothingDone,    
@@ -35,11 +52,17 @@ namespace WindowsApplication
          
         // METHODES PERSO UTILISEES DANS LES ELEMENTS DE LA GUI
 
+        /// <summary>
+        /// Permet d'activer ou désactiver certains éléments de l'interface en fonction de l'étape transmise en paramètre
+        /// </summary>
+        /// <param name="step">l'étape actuelle de l'application</param>
         private void manageGuiElements(Step step)
         {
             Console.WriteLine("Updating GUI elements for step " + step);
             switch(step)
             {
+                // par défaut + step "on a rien fait encore"
+                default:
                 case Step.NothingDone:
                     btnOpenImage.Enabled = true;
                     btnSaveNewImage.Enabled = false;
@@ -52,20 +75,28 @@ namespace WindowsApplication
                     cmbXAlgo.SelectedIndex = 0;
                     cmbYAlgo.SelectedIndex = 0;
                     break;
+                // si on a chargé l'image
                 case Step.ImageLoaded:
                     btnOpenImage.Enabled = false;
                     btnResetSettings.Enabled = true;
                     groupBoxFiltersButtons.Enabled = true;
                     break;
+                // si on a appliqué un filtre au moins (ou clic pas de filtre)
                 case Step.FilterApplied:
                     groupBoxEdgeDetectionSettings.Enabled = true;
                     break;
+                // si on a appliqué l'edge detection
                 case Step.EdgeDetectionApplied:
                     groupBoxFiltersButtons.Enabled = false;
                     btnSaveNewImage.Enabled = true;
                     break;
             }
         }
+
+        /// <summary>
+        /// Applique un filtre sur l'image en cours
+        /// </summary>
+        /// <param name="filter">le filtre à appliquer</param>
         private void ApplyFilter(string filter)
         {
             Console.WriteLine("Fake filter applied - " + filter);
@@ -164,7 +195,6 @@ namespace WindowsApplication
                     manageGuiElements(Step.EdgeDetectionApplied);
                 } else
                 {
-
                     MessageBox.Show("Please select an algorithm for X and Y axis", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
