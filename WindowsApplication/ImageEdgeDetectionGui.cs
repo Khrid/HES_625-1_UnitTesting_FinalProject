@@ -108,18 +108,33 @@ namespace WindowsApplication
 
         private void btnOpenOriginal_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // on appelle la BLL pour charger une image (elle même va appeler la DAL mais c'est son problème)
-                Bitmap tmp = businessFileManager.LoadImage(@"C:\tmp\test.png");
-                picPreview.Image = tmp;
 
-                // on active les éléments du GOUI pour la suite
-                manageGuiElements(Step.ImageLoaded);
-            }
-            catch(FileNotFoundException fnfe)
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Select an image file.";
+            ofd.Filter = "PNG Images (*.png)|*.png";
+            ofd.Filter += "|JPEG Images (*.jpg)|*.jpg";
+            ofd.Filter += "|Bitmap Images (*.bmp)|*.bmp";
+
+
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Console.WriteLine("oops!\n -> " + fnfe.Message);
+                Console.WriteLine("Selected file : " + ofd.FileName);
+                try
+                {
+                    // on appelle la BLL pour charger l'image (elle même va appeler la DAL mais c'est son problème)
+                    Bitmap tmp = businessFileManager.LoadImage(ofd.FileName);
+                    picPreview.Image = tmp;
+
+                    // on active les éléments du GOUI pour la suite
+                    manageGuiElements(Step.ImageLoaded);
+                }
+                catch (FileNotFoundException fnfe)
+                {
+                    Console.WriteLine("oops!\n -> " + fnfe.Message);
+                }
+            } else
+            {
+                Console.WriteLine("File acquisition was canceled.");
             }
         }
 
