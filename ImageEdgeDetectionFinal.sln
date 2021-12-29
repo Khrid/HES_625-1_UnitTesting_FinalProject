@@ -5,11 +5,16 @@ VisualStudioVersion = 16.0.31829.152
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApplication", "WindowsApplication\WindowsApplication.csproj", "{649E8198-E423-423A-BA81-F60A6A646375}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestsImageEdgeDetectionFinal", "TestsImageEdgeDetectionFinal\TestsImageEdgeDetectionFinal.csproj", "{FB6E967E-F087-4151-A1FD-9344010B050B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestsImageEdgeDetectionFinal", "TestsImageEdgeDetectionFinal\TestsImageEdgeDetectionFinal.csproj", "{FB6E967E-F087-4151-A1FD-9344010B050B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{E096C5C9-6332-4887-A264-9C7EE9D033E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{BCBE6448-FA49-4AA1-B0D3-AAABF1845746}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5556EF87-41F3-4422-B9E2-D2D3BE2CF207}"
+	ProjectSection(SolutionItems) = preProject
+		ProjectRequirements.pdf = ProjectRequirements.pdf
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
