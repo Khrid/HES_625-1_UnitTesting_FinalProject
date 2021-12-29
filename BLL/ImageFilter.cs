@@ -25,7 +25,7 @@ namespace BLL
 
         public Bitmap NightFilter()
         {
-            return ApplyFilter(prOriginalBmp, 1, 10, 1, 1);
+            return ApplyFilter(prOriginalBmp, 1, 1, 1, 25);
         }
 
         public Bitmap NoFilter()
