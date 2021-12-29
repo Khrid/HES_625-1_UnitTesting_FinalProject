@@ -42,6 +42,7 @@ namespace WindowsApplication
         // interface de lien présentation <-> BLL
         IBusinessFileManager businessFileManager = new ImageManager();
         IBusinessImageFilter businessImageFilter = new ImageFilter();
+        IBusinessImageEdgeDetection businessImageEdgeDetection = new ImageEdgeDetection();
         bool algoEdgeDetectionWholeImage = true;
 
         public ImageEdgeDetectionGui()
@@ -122,6 +123,7 @@ namespace WindowsApplication
             }
             
             picPreview.Image = tmp;
+            businessImageEdgeDetection.originalBmp = tmp;
 
             Console.WriteLine("Filter applied - " + filter);
             manageGuiElements(Step.FilterApplied);
@@ -219,8 +221,9 @@ namespace WindowsApplication
             if(algoEdgeDetectionWholeImage)
             {
                 if(cmbXAlgo.SelectedIndex > 0)
-                { 
-                    Console.WriteLine("Fake edge detection applied - Whole image - " + cmbXAlgo.SelectedItem.ToString());
+                {
+                    picPreview.Image = businessImageEdgeDetection.EdgeDetection(cmbXAlgo.SelectedItem.ToString());
+                    Console.WriteLine("Edge detection applied - Whole image - " + cmbXAlgo.SelectedItem.ToString());
                     manageGuiElements(Step.EdgeDetectionApplied);
                 } else
                 {

@@ -42,11 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtBitmap.cs" />
+    <Compile Include="ImageEdgeDetection.cs" />
     <Compile Include="ImageFilter.cs" />
     <Compile Include="interfaces\IBusinessFileManager.cs" />
     <Compile Include="ImageManager.cs" />
     <Compile Include="interfaces\IBusinessImageEdgeDetection.cs" />
     <Compile Include="interfaces\IBusinessImageFilter.cs" />
+    <Compile Include="Matrix.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
