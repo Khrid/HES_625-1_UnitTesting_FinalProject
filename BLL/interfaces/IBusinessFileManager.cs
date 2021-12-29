@@ -11,7 +11,10 @@ namespace BLL
     public interface IBusinessFileManager
     {
         IFileLoader imageLoader { get; set; }
+        IFileSaver imageSaver { get; set; }
 
         Bitmap LoadImage(string path);
+
+        void SaveImage(Bitmap image, string path);
     }
 }

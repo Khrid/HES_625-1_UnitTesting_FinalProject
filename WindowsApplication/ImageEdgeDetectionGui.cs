@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -239,6 +240,22 @@ namespace WindowsApplication
                 } else
                 {
                     MessageBox.Show("Please select an algorithm for X and Y axis", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnSaveNewImage_Click(object sender, EventArgs e)
+        {
+            if(picPreview.Image != null)
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Title = "Specify a file name and file path";
+                sfd.Filter = "PNG Images (*.png)|*.png";
+                sfd.Filter += "|JPEG Images (*.jpg)|*.jpg";
+                sfd.Filter += "|Bitmap Images (*.bmp)|*.bmp";
+                if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    businessFileManager.SaveImage(new Bitmap(picPreview.Image), sfd.FileName);
                 }
             }
         }
