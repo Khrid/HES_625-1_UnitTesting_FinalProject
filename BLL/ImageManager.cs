@@ -14,7 +14,7 @@ namespace BLL
 
         public ImageManager()
         {
-            this.imageLoader = new ImageLoader();
+            imageLoader = new ImageLoader();
         }
 
         public Bitmap LoadImage(string path)

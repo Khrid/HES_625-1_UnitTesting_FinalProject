@@ -41,6 +41,7 @@ namespace WindowsApplication
  {
         // interface de lien présentation <-> BLL
         IBusinessFileManager businessFileManager = new ImageManager();
+        IBusinessImageFilter businessImageFilter = new ImageFilter();
         bool algoEdgeDetectionWholeImage = true;
 
         public ImageEdgeDetectionGui()
@@ -99,7 +100,30 @@ namespace WindowsApplication
         /// <param name="filter">le filtre à appliquer</param>
         private void ApplyFilter(string filter)
         {
-            Console.WriteLine("Fake filter applied - " + filter);
+            Bitmap tmp;
+            switch (filter)
+            {
+                case "night":
+                    tmp = businessImageFilter.NightFilter();
+                    break;
+
+                case "miami":
+                    tmp = businessImageFilter.MiamiFilter();
+                    break;
+
+                case "hell":
+                    tmp = businessImageFilter.HellFilter();
+                    break;
+
+                default:
+                    tmp = businessImageFilter.NoFilter();
+                    break;
+
+            }
+            
+            picPreview.Image = tmp;
+
+            Console.WriteLine("Filter applied - " + filter);
             manageGuiElements(Step.FilterApplied);
         }
 
@@ -123,6 +147,7 @@ namespace WindowsApplication
                 {
                     // on appelle la BLL pour charger l'image (elle même va appeler la DAL mais c'est son problème)
                     Bitmap tmp = businessFileManager.LoadImage(ofd.FileName);
+                    businessImageFilter.originalBmp = tmp;
                     picPreview.Image = tmp;
 
                     // on active les éléments du GOUI pour la suite
