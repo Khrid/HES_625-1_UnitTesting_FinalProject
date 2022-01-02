@@ -44,7 +44,6 @@ namespace WindowsApplication
         IBusinessFileManager businessFileManager = new ImageManager();
         IBusinessImageFilter businessImageFilter = new ImageFilter();
         IBusinessImageEdgeDetection businessImageEdgeDetection = new ImageEdgeDetection();
-        bool algoEdgeDetectionWholeImage = true;
 
         public ImageEdgeDetectionGui()
         {
@@ -73,10 +72,7 @@ namespace WindowsApplication
                     groupBoxFiltersButtons.Enabled = false;
                     groupBoxEdgeDetectionSettings.Enabled = false;
                     picPreview.Image = null;
-                    radioButtonWholeImage.Checked = true;
-                    labelAlgoYAxis.Visible = false;
-                    cmbXAlgo.SelectedIndex = 0;
-                    cmbYAlgo.SelectedIndex = 0;
+                    cmbAlgo.SelectedIndex = 0;
                     break;
                 // si on a chargé l'image
                 case Step.ImageLoaded:
@@ -166,29 +162,6 @@ namespace WindowsApplication
             }
         }
 
-        private void radioButtonWholeImage_CheckedChanged(object sender, EventArgs e)
-        {
-            // gestion dynamique des listes déroulantes & label qui vont avec
-
-            // si le radio button "Whole image" est checké => on affiche qu'une seule liste déroulante
-            if(radioButtonWholeImage.Checked)
-            {
-                labelAlgoWholeOrX.Text = "Algorithm for the whole image";
-                labelAlgoYAxis.Visible = false;
-                cmbYAlgo.Visible = false;
-                algoEdgeDetectionWholeImage = true;
-            }
-            // sinon on affiche les deux listes déroulantes, pour l'axe X et Y
-            else if(radioButtonXYAxis.Checked)
-            {
-                labelAlgoWholeOrX.Text = "Algorithm X axis";
-                labelAlgoYAxis.Visible = true;
-                cmbYAlgo.Visible = true;
-                algoEdgeDetectionWholeImage = false;
-            }
-        }
-
-
         private void btnResetSettings_Click(object sender, EventArgs e)
         {
             // reset des différents paramètres, comme si on revenait au chargement de l'app
@@ -215,35 +188,6 @@ namespace WindowsApplication
             ApplyFilter("none");
         }
 
-
-        private void btnApplyEdgeDetection_Click(object sender, EventArgs e)
-        {
-            // Check sur le type d'EdgeDetection que l'on va appliquer (whole image ou X Y axis)
-            if(algoEdgeDetectionWholeImage)
-            {
-                if(cmbXAlgo.SelectedIndex > 0)
-                {
-                    picPreview.Image = businessImageEdgeDetection.EdgeDetection(cmbXAlgo.SelectedItem.ToString());
-                    Console.WriteLine("Edge detection applied - Whole image - " + cmbXAlgo.SelectedItem.ToString());
-                    manageGuiElements(Step.EdgeDetectionApplied);
-                } else
-                {
-                    MessageBox.Show("Please select an algorithm", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            } 
-            else
-            {
-                if (cmbXAlgo.SelectedIndex > 0 && cmbYAlgo.SelectedIndex > 0)
-                {
-                    Console.WriteLine("Fake edge detection applied - X Y axis - " + cmbXAlgo.SelectedItem.ToString() + " / " + cmbYAlgo.SelectedItem.ToString());
-                    manageGuiElements(Step.EdgeDetectionApplied);
-                } else
-                {
-                    MessageBox.Show("Please select an algorithm for X and Y axis", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
         private void btnSaveNewImage_Click(object sender, EventArgs e)
         {
             if(picPreview.Image != null)
@@ -258,6 +202,13 @@ namespace WindowsApplication
                     businessFileManager.SaveImage(new Bitmap(picPreview.Image), sfd.FileName);
                 }
             }
+        }
+
+        private void cmbAlgo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            picPreview.Image = businessImageEdgeDetection.EdgeDetection(cmbAlgo.SelectedItem.ToString());
+            Console.WriteLine("Edge detection applied - " + cmbAlgo.SelectedItem.ToString());
+            manageGuiElements(Step.EdgeDetectionApplied);
         }
     }
 }
