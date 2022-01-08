@@ -71,6 +71,8 @@ namespace WindowsApplication
                     btnResetSettings.Enabled = false;
                     groupBoxFiltersButtons.Enabled = false;
                     groupBoxEdgeDetectionSettings.Enabled = false;
+                    businessImageEdgeDetection.originalBmp = null;
+                    businessImageFilter.originalBmp = null;
                     picPreview.Image = null;
                     cmbAlgo.SelectedIndex = 0;
                     break;

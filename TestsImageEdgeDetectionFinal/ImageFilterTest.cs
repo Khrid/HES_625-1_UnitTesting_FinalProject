@@ -20,6 +20,7 @@ namespace TestsImageEdgeDetectionFinal
         [TestMethod]
         public void TestFilterNotNull()
         {
+            Assert.IsNotNull(imageFilter.originalBmp);
             Assert.IsNotNull(imageFilter.NoFilter());
             Assert.IsNotNull(imageFilter.HellFilter());
             Assert.IsNotNull(imageFilter.MiamiFilter());

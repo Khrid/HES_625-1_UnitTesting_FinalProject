@@ -20,6 +20,7 @@ namespace TestsImageEdgeDetectionFinal
         [TestMethod]
         public void TestEdgeDetectionNotNull()
         {
+            Assert.IsNotNull(imageEdgeDetection.originalBmp);
             Assert.IsNotNull(imageEdgeDetection.EdgeDetection(""));
             Assert.IsNotNull(imageEdgeDetection.EdgeDetection("Prewitt"));
             Assert.IsNotNull(imageEdgeDetection.EdgeDetection("Prewitt Grayscale"));
